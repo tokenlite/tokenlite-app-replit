@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Litepaper Generator - Professional Crypto Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: {
+                        50: '#eff6ff',
+                        500: '#3b82f6',
+                        600: '#2563eb',
+                        700: '#1d4ed8',
+                        900: '#1e3a8a'
+                    },
+                    secondary: {
+                        500: '#6366f1',
+                        600: '#5b21b6'
+                    }
+                },
+                fontFamily: {
+                    'sans': ['Inter', 'sans-serif']
+                }
+            }
+        }
+    };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    
+    <!-- @COMPONENT: Header [main navigation and branding] -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-file-contract text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-xl font-bold text-gray-900">AI Litepaper Generator</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">Professional Crypto Documentation</span>
+                    <button class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        <i class="fas fa-question-circle mr-1"></i>Help
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <!-- @COMPONENT: MainContainer [primary application layout] -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- @COMPONENT: GenerationForm [left panel - input form] -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Progress Indicator -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Generation Progress</h2>
+                    <div class="flex items-center space-x-4">
+                        <!-- @STATE: currentStep:number = 1 -->
+                        <div class="flex items-center space-x-2 text-primary-600">
+                            <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-medium">1</span>
+                            </div>
+                            <span class="text-sm font-medium">Project Details</span>
+                        </div>
+                        <div class="w-16 h-px bg-gray-300"></div>
+                        <div class="flex items-center space-x-2 text-gray-400">
+                            <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-medium">2</span>
+                            </div>
+                            <span class="text-sm font-medium">Generate</span>
+                        </div>
+                        <div class="w-16 h-px bg-gray-300"></div>
+                        <div class="flex items-center space-x-2 text-gray-400">
+                            <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-medium">3</span>
+                            </div>
+                            <span class="text-sm font-medium">Download</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Information Form -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-info-circle text-primary-500 mr-2"></i>
+                        Project Information
+                    </h2>
+                    
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="projectName">
+                                    Project Name <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="projectName" data-bind="project.name" placeholder="e.g., DeFiProtocol" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="tokenSymbol">
+                                    Token Symbol <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="tokenSymbol" data-bind="project.tokenSymbol" placeholder="e.g., DFP" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="projectDescription">
+                                Project Description <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="projectDescription" rows="4" data-bind="project.description" 
+                                      placeholder="Provide a brief overview of your project, its mission, and core objectives..."
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Token Logo Upload
+                            </label>
+                            <!-- Using ObjectUploader component for file upload -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-400 transition-colors cursor-pointer" 
+                                 data-implementation="Use ObjectUploader component here">
+                                <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-3"></i>
+                                <p class="text-sm text-gray-600 mb-2">Click to upload or drag and drop</p>
+                                <p class="text-xs text-gray-400">PNG, JPG or SVG (max. 5MB)</p>
+                                <input type="file" class="hidden" accept="image/*" data-mock-image="true">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Market & Problem Analysis -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-chart-line text-primary-500 mr-2"></i>
+                        Market & Problem Analysis
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="problemStatement">
+                                Problem Statement <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="problemStatement" rows="4" data-bind="project.problemStatement" 
+                                      placeholder="Describe the key problems your project aims to solve in the current market..."
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="targetMarket">
+                                    Target Market
+                                </label>
+                                <select id="targetMarket" data-bind="project.targetMarket" 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                    <option value="">Select target market</option>
+                                    <option value="defi">DeFi</option>
+                                    <option value="nft">NFT/Gaming</option>
+                                    <option value="infrastructure">Infrastructure</option>
+                                    <option value="payments">Payments</option>
+                                    <option value="privacy">Privacy</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="marketSize">
+                                    Market Size (USD)
+                                </label>
+                                <input type="text" id="marketSize" data-bind="project.marketSize" placeholder="e.g., $50B+" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tokenomics Configuration -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-coins text-primary-500 mr-2"></i>
+                        Tokenomics Configuration
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="totalSupply">
+                                    Total Supply <span class="text-red-500">*</span>
+                                </label>
+                                <input type="number" id="totalSupply" data-bind="project.totalSupply" placeholder="1000000000" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="initialPrice">
+                                    Initial Price (USD)
+                                </label>
+                                <input type="number" step="0.001" id="initialPrice" data-bind="project.initialPrice" placeholder="0.10" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="vestingPeriod">
+                                    Vesting Period (months)
+                                </label>
+                                <input type="number" id="vestingPeriod" data-bind="project.vestingPeriod" placeholder="24" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <!-- Token Distribution -->
+                        <div>
+                            <h3 class="text-md font-medium text-gray-900 mb-3">Token Distribution</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <!-- @MAP: distributionItems.map(item => ( -->
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-600 mb-1">Public Sale</label>
+                                    <div class="relative">
+                                        <input type="number" max="100" placeholder="30" 
+                                               class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                                        <span class="absolute right-3 top-2 text-gray-400 text-sm">%</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-600 mb-1">Team</label>
+                                    <div class="relative">
+                                        <input type="number" max="100" placeholder="20" 
+                                               class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                                        <span class="absolute right-3 top-2 text-gray-400 text-sm">%</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-600 mb-1">Ecosystem</label>
+                                    <div class="relative">
+                                        <input type="number" max="100" placeholder="25" 
+                                               class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                                        <span class="absolute right-3 top-2 text-gray-400 text-sm">%</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-600 mb-1">Staking Rewards</label>
+                                    <div class="relative">
+                                        <input type="number" max="100" placeholder="25" 
+                                               class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                                        <span class="absolute right-3 top-2 text-gray-400 text-sm">%</span>
+                                    </div>
+                                </div>
+                                <!-- @END_MAP )) -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Features -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-cogs text-primary-500 mr-2"></i>
+                        Product Features
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <!-- @MAP: features.map((feature, index) => ( -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-3">
+                                <h4 class="font-medium text-gray-900">Feature #1</h4>
+                                <button class="text-gray-400 hover:text-red-500 transition-colors">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" placeholder="Feature name" 
+                                       class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                                <input type="text" placeholder="Brief description" 
+                                       class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                        
+                        <button class="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-gray-500 hover:border-primary-400 hover:text-primary-600 transition-colors">
+                            <i class="fas fa-plus mr-2"></i>Add Feature
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Output Format Selection -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-file-export text-primary-500 mr-2"></i>
+                        Output Format
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <label class="relative flex cursor-pointer">
+                            <input type="radio" name="outputFormat" value="pdf" class="sr-only" checked>
+                            <div class="w-full p-4 border-2 border-primary-500 bg-primary-50 rounded-lg text-center">
+                                <i class="fas fa-file-pdf text-primary-600 text-2xl mb-2"></i>
+                                <p class="font-medium text-primary-900">PDF</p>
+                                <p class="text-xs text-primary-600">Professional document</p>
+                            </div>
+                        </label>
+                        <label class="relative flex cursor-pointer">
+                            <input type="radio" name="outputFormat" value="html" class="sr-only">
+                            <div class="w-full p-4 border-2 border-gray-300 rounded-lg text-center hover:border-primary-400 transition-colors">
+                                <i class="fas fa-code text-gray-600 text-2xl mb-2"></i>
+                                <p class="font-medium text-gray-900">HTML</p>
+                                <p class="text-xs text-gray-600">Web-friendly format</p>
+                            </div>
+                        </label>
+                        <label class="relative flex cursor-pointer">
+                            <input type="radio" name="outputFormat" value="markdown" class="sr-only">
+                            <div class="w-full p-4 border-2 border-gray-300 rounded-lg text-center hover:border-primary-400 transition-colors">
+                                <i class="fab fa-markdown text-gray-600 text-2xl mb-2"></i>
+                                <p class="font-medium text-gray-900">Markdown</p>
+                                <p class="text-xs text-gray-600">Developer format</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <button class="w-full bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transform transition-all duration-200 hover:scale-105" 
+                            data-event="click:handleGenerate" data-implementation="Should validate form and start AI generation process">
+                        <i class="fas fa-magic mr-3"></i>
+                        Generate AI Litepaper
+                    </button>
+                    <p class="text-center text-sm text-gray-500 mt-3">
+                        Generation typically takes 2-3 minutes
+                    </p>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: GenerationForm -->
+
+            <!-- @COMPONENT: PreviewPanel [right panel - preview and status] -->
+            <div class="lg:col-span-1 space-y-6">
+                
+                <!-- Generation Status -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Generation Status</h3>
+                    
+                    <!-- Idle State -->
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-robot text-gray-400 text-xl"></i>
+                        </div>
+                        <p class="text-gray-600 mb-2">Ready to generate</p>
+                        <p class="text-sm text-gray-400">Fill out the form and click generate</p>
+                    </div>
+
+                    <!-- Progress State (Hidden by default) -->
+                    <div class="hidden" id="generationProgress">
+                        <div class="space-y-4">
+                            <!-- @MAP: generationSteps.map(step => ( -->
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-check text-green-600 text-xs"></i>
+                                </div>
+                                <span class="text-sm text-gray-700">Executive Summary</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <div class="w-3 h-3 bg-primary-500 rounded-full animate-pulse"></div>
+                                </div>
+                                <span class="text-sm text-gray-700">Problem Statement</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+                                    <span class="w-2 h-2 bg-gray-400 rounded-full"></span>
+                                </div>
+                                <span class="text-sm text-gray-400">Market Analysis</span>
+                            </div>
+                            <!-- @END_MAP )) -->
+                        </div>
+                        
+                        <div class="mt-6 pt-4 border-t border-gray-200">
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Progress</span>
+                                <span>30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary-500 h-2 rounded-full w-1/3 transition-all duration-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Preview -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Document Preview</h3>
+                    
+                    <div class="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center">
+                        <!-- Mock Document Preview -->
+                        <div class="w-32 h-40 bg-gray-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-file-alt text-gray-400 text-3xl"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-2">Preview will appear here</p>
+                        <p class="text-gray-400 text-xs">After generation completes</p>
+                    </div>
+
+                    <!-- Download Options (Hidden until generation complete) -->
+                    <div class="hidden mt-6 space-y-3" id="downloadOptions">
+                        <button class="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                            <i class="fas fa-download mr-2"></i>Download PDF
+                        </button>
+                        <button class="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                            <i class="fas fa-code mr-2"></i>Download HTML
+                        </button>
+                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                            <i class="fab fa-markdown mr-2"></i>Download Markdown
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Configuration -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">AI Settings</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Content Style</label>
+                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                                <option>Professional</option>
+                                <option>Technical</option>
+                                <option>Investor-focused</option>
+                                <option>Community-friendly</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Document Length</label>
+                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm">
+                                <option>Comprehensive (15-20 pages)</option>
+                                <option>Standard (10-15 pages)</option>
+                                <option>Concise (8-12 pages)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-500 rounded">
+                                <span class="ml-2 text-sm text-gray-700">Include charts & diagrams</span>
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-500 rounded" checked>
+                                <span class="ml-2 text-sm text-gray-700">Generate tokenomics visuals</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Generations -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Generations</h3>
+                    
+                    <div class="space-y-3">
+                        <!-- @MAP: recentGenerations.map(generation => ( -->
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-file-alt text-primary-600 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900" data-bind="generation.name">DeFiProtocol</p>
+                                    <p class="text-xs text-gray-500" data-bind="generation.date">2 hours ago</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-primary-600 transition-colors">
+                                <i class="fas fa-download text-sm"></i>
+                            </button>
+                        </div>
+                        <!-- @END_MAP )) -->
+                        
+                        <div class="text-center py-4">
+                            <p class="text-sm text-gray-400">No recent generations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: PreviewPanel -->
+        </div>
+    </div>
+    <!-- @END_COMPONENT: MainContainer -->
+
+    <!-- @COMPONENT: Footer [footer with links and info] -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex items-center space-x-4">
+                    <p class="text-sm text-gray-500">© 2024 AI Litepaper Generator</p>
+                    <span class="text-gray-300">|</span>
+                    <a href="#" class="text-sm text-gray-500 hover:text-primary-600">Privacy Policy</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-primary-600">Terms</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">Powered by OpenAI</span>
+                    <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center">
+                        <i class="fas fa-robot text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        // TODO: Implement form validation and AI generation logic
+        // TODO: Add API integration for OpenAI content generation  
+        // TODO: Implement file upload functionality using ObjectUploader
+        // TODO: Add progress tracking and status updates
+        // TODO: Implement document preview and download functionality
+        
+        (() => {
+            // Form validation and UI interactions
+            const form = document.querySelector('form');
+            const generateButton = document.querySelector('[data-event="click:handleGenerate"]');
+            const radioButtons = document.querySelectorAll('input[type="radio"][name="outputFormat"]');
+            
+            // Handle radio button selection styling
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    radioButtons.forEach(r => {
+                        const container = r.closest('label').querySelector('div');
+                        if (r.checked) {
+                            container.className = container.className.replace('border-gray-300', 'border-primary-500').replace('hover:border-primary-400', '');
+                            if (!container.className.includes('bg-primary-50')) {
+                                container.className += ' bg-primary-50';
+                            }
+                        } else {
+                            container.className = container.className.replace('border-primary-500', 'border-gray-300').replace('bg-primary-50', '');
+                            if (!container.className.includes('hover:border-primary-400')) {
+                                container.className += ' hover:border-primary-400';
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Mock generation process
+            generateButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // TODO: Add real form validation here
+                console.log('Starting litepaper generation...');
+                
+                // Mock progress animation
+                const idleStatus = document.querySelector('#generationProgress').previousElementSibling;
+                const progressStatus = document.querySelector('#generationProgress');
+                
+                idleStatus.classList.add('hidden');
+                progressStatus.classList.remove('hidden');
+                
+                // TODO: Implement real AI generation with OpenAI API
+                setTimeout(() => {
+                    document.querySelector('#downloadOptions').classList.remove('hidden');
+                }, 5000);
+            });
+
+            // File upload handling placeholder
+            const fileInput = document.querySelector('input[type="file"]');
+            const uploadArea = fileInput.closest('div');
+            
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const fileName = e.target.files[0].name;
+                    uploadArea.innerHTML = `
+                        <i class="fas fa-check-circle text-green-500 text-3xl mb-3"></i>
+                        <p class="text-sm text-green-600 mb-2">File uploaded: ${fileName}</p>
+                        <p class="text-xs text-gray-400">Click to replace</p>
+                    `;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"projectName": "Test", "tokenSymbol": "TST", "description": "Test description here", "problemStatement": "Test problem statement here", "totalSupply": "1000000", "features": [{"name": "Test Feature", "description": "Test feature description"}], "tokenDistribution": {"public": 100}, "outputFormat": "pdf"}
